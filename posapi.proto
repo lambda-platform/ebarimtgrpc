@@ -1,0 +1,179 @@
+syntax = "proto3";
+
+package posapi;
+option go_package = "./;posapi";
+
+service PosApi {
+  rpc GetInformation (GetInformationRequest) returns (InformationOutput);
+  rpc CheckApi (CheckApiRequest) returns (CheckOutput);
+  rpc CallFunction (CallFunctionRequest) returns (CallFunctionResponse);
+  rpc Put (PutInput) returns (PutOutput);
+  rpc PutBatch (PutInputBatch) returns (PutOutput);
+  rpc ReturnBill (BillInput) returns (BillOutput);
+  rpc SendData (SendDataRequest) returns (DataOutput);
+}
+
+message GetInformationRequest {}
+
+message CheckApiRequest {}
+
+message CallFunctionRequest {
+  string function_name = 1;
+  string params = 2;
+}
+
+message CallFunctionResponse {
+  string result = 1;
+}
+
+message SendDataRequest {}
+
+message CheckOutput {
+  bool success = 1;
+  DatabaseStatus database = 2;
+  ConfigStatus config = 3;
+  NetworkStatus network = 4;
+}
+
+message DatabaseStatus {
+  bool success = 1;
+  string message = 2;
+}
+
+message ConfigStatus {
+  bool success = 1;
+  string message = 2;
+}
+
+message NetworkStatus {
+  bool success = 1;
+  string message = 2;
+}
+
+message InformationOutput {
+  string register_no = 1;
+  string branch_no = 2;
+  string pos_id = 3;
+  string db_dir_path = 4;
+  ExtraInfo extra_info = 5;
+}
+
+message ExtraInfo {
+  string count_bill = 1;
+  int32 count_lottery = 2;
+  string last_sent_date = 3;
+  string pos_version = 4;
+}
+
+message PutInput {
+  string amount = 1;
+  string vat = 2;
+  string cash_amount = 3;
+  string non_cash_amount = 4;
+  string city_tax = 5;
+  string district_code = 6;
+  string pos_no = 7;
+  string customer_no = 8;
+  string bill_type = 9;
+  string bill_id_suffix = 10;
+  string return_bill_id = 11;
+  string tax_type = 12;
+  string invoice_id = 13;
+  string report_month = 14;
+  string branch_no = 15;
+  repeated Stock stocks = 16;
+  repeated BankTransaction bank_transactions = 17;
+}
+
+message Stock {
+  string code = 1;
+  string name = 2;
+  string measure_unit = 3;
+  string qty = 4;
+  string unit_price = 5;
+  string total_amount = 6;
+  string city_tax = 7;
+  string vat = 8;
+  string bar_code = 9;
+}
+
+message BankTransaction {
+  string rrn = 1;
+  string bank_id = 2;
+  string terminal_id = 3;
+  string approval_code = 4;
+  string amount = 5;
+}
+
+message PutOutput {
+  bool success = 1;
+  string register_no = 2;
+  string bill_id = 3;
+  string date = 4;
+  string mac_address = 5;
+  string internal_code = 6;
+  string bill_type = 7;
+  string qr_data = 8;
+  string lottery = 9;
+  string lottery_warning_msg = 10;
+  int32 error_code = 11;
+  string message = 12;
+}
+
+message BillInput {
+  string return_bill_id = 1;
+  string date = 2;
+}
+
+message BillOutput {
+  bool success = 1;
+  string register_no = 2;
+  string bill_id = 3;
+  string date = 4;
+  string mac_address = 5;
+  string internal_code = 6;
+  string bill_type = 7;
+  string qr_data = 8;
+  string lottery = 9;
+  string lottery_warning_msg = 10;
+  int32 error_code = 11;
+  string message = 12;
+}
+message PutInputBatch {
+  bool group = 1;
+  string vat = 2;
+  string amount = 3;
+  string bill_type = 4;
+  string bill_id_suffix = 5;
+  string pos_no = 6;
+  repeated Bill bills = 7;
+}
+
+message Bill {
+  string amount = 1;
+  string vat = 2;
+  string cash_amount = 3;
+  string non_cash_amount = 4;
+  string city_tax = 5;
+  string district_code = 6;
+  string pos_no = 7;
+  string customer_no = 8;
+  string bill_type = 9;
+  string bill_id_suffix = 10;
+  string return_bill_id = 11;
+  string tax_type = 12;
+  string invoice_id = 13;
+  string report_month = 14;
+  string branch_no = 15;
+  repeated Stock stocks = 16;
+  repeated BankTransaction bank_transactions = 17;
+  string internal_id = 18;
+  string register_no = 19;
+}
+
+
+message DataOutput {
+  bool success = 1;
+  string message = 2;
+}
+
