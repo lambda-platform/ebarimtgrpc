@@ -28,8 +28,9 @@ func UploadFile(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Save the file
-	dst, err := os.Create(fmt.Sprintf("./sofiles/%s", header.Filename))
+	dst, err := os.Create(fmt.Sprintf("sofiles/%s", header.Filename))
 	if err != nil {
+		fmt.Println(err)
 		http.Error(w, "Error saving the file", http.StatusInternalServerError)
 		return
 	}

@@ -16,5 +16,6 @@ protoc --go_out=. --go-grpc_out=. --go-grpc_opt=require_unimplemented_servers=fa
 
 docker build --platform linux/amd64 --build-arg ARCH=x64 -t ebarimtgrpc .
 
-docker tag ebarimt:latest munkhaltai/ebarimtgrpc:latest
+docker tag ebarimtgrpc:latest munkhaltai/ebarimtgrpc:latest
 docker push munkhaltai/ebarimtgrpc:latest
+docker pull munkhaltai/ebarimtgrpc:latest

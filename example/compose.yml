@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  ebarimt:
+    image: munkhaltai/ebarimtgrpc:latest
+    restart: always
+    platform: linux/amd64
+    ports:
+      - "8110:8110"
+      - "8111:8111"
+    volumes:
+      - ./sofiles:/home/ebarimtuser/app/sofiles
+    environment:
+      - TZ=Asia/Ulaanbaatar
+
