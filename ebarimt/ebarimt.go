@@ -11,7 +11,7 @@ func PosAPI(pos_id string) posapi.PosAPI {
 
 	api, err := posapi.NewPosAPI(config.SoFilesPath + pos_id + ".so")
 
-	if err != nil && api != nil {
+	if err != nil || api == nil {
 		fmt.Println(err.Error())
 	} else {
 		API = *api

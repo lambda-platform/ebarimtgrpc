@@ -9,7 +9,8 @@ import (
 
 func (server *Server) GetInformation(ctx context.Context, in *ebarimtProto.GetInformationRequest) (*ebarimtProto.InformationOutput, error) {
 
-	info, err := ebarimt.PosAPI(in.PosID).GetInformation()
+	api := ebarimt.PosAPI(in.PosID)
+	info, err := api.GetInformation()
 	if err != nil {
 		return nil, err
 	}
@@ -30,7 +31,8 @@ func (server *Server) GetInformation(ctx context.Context, in *ebarimtProto.GetIn
 }
 
 func (server *Server) CheckApi(ctx context.Context, in *ebarimtProto.CheckApiRequest) (*ebarimtProto.CheckOutput, error) {
-	res, err := ebarimt.PosAPI(in.PosID).CheckApi()
+	api := ebarimt.PosAPI(in.PosID)
+	res, err := api.CheckApi()
 	if err != nil {
 		return nil, err
 	}
@@ -54,7 +56,8 @@ func (server *Server) CheckApi(ctx context.Context, in *ebarimtProto.CheckApiReq
 
 func (server *Server) CallFunction(ctx context.Context, in *ebarimtProto.CallFunctionRequest) (*ebarimtProto.CallFunctionResponse, error) {
 
-	res, err := ebarimt.PosAPI(in.PosID).CallFunction(in.FunctionName, in.Params)
+	api := ebarimt.PosAPI(in.PosID)
+	res, err := api.CallFunction(in.FunctionName, in.Params)
 	if err != nil {
 		return nil, err
 	}
@@ -66,7 +69,8 @@ func (server *Server) CallFunction(ctx context.Context, in *ebarimtProto.CallFun
 
 func (server *Server) Put(ctx context.Context, in *ebarimtProto.PutInput) (*ebarimtProto.PutOutput, error) {
 
-	output, err := ebarimt.PosAPI(in.PosID).Put(ConvertFromGRPCPutInput(in))
+	api := ebarimt.PosAPI(in.PosID)
+	output, err := api.Put(ConvertFromGRPCPutInput(in))
 	if err != nil {
 		return nil, err
 	}
@@ -135,7 +139,8 @@ func ConvertFromGRPCPutInput(input *ebarimtProto.PutInput) posapi.PutInput {
 }
 
 func (server *Server) PutBatch(ctx context.Context, in *ebarimtProto.PutInputBatch) (*ebarimtProto.PutOutput, error) {
-	output, err := ebarimt.PosAPI(in.PosID).PutBatch(ConvertFromGRPCPutInputBatch(in))
+	api := ebarimt.PosAPI(in.PosID)
+	output, err := api.PutBatch(ConvertFromGRPCPutInputBatch(in))
 	if err != nil {
 		return nil, err
 	}
@@ -220,7 +225,8 @@ func ConvertFromGRPCPutInputBatch(grpcModel *ebarimtProto.PutInputBatch) posapi.
 }
 func (server *Server) ReturnBill(ctx context.Context, in *ebarimtProto.BillInput) (*ebarimtProto.BillOutput, error) {
 
-	res, err := ebarimt.PosAPI(in.PosID).ReturnBill(ConvertFromGRPCBillInput(in))
+	api := ebarimt.PosAPI(in.PosID)
+	res, err := api.ReturnBill(ConvertFromGRPCBillInput(in))
 	if err != nil {
 		return nil, err
 	}
@@ -240,7 +246,8 @@ func ConvertFromGRPCBillInput(grpcModel *ebarimtProto.BillInput) posapi.BillInpu
 
 func (server *Server) SendData(ctx context.Context, in *ebarimtProto.SendDataRequest) (*ebarimtProto.DataOutput, error) {
 
-	res, err := ebarimt.PosAPI(in.PosID).SendData()
+	api := ebarimt.PosAPI(in.PosID)
+	res, err := api.SendData()
 	if err != nil {
 		return nil, err
 	}
