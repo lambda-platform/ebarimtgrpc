@@ -70,9 +70,17 @@ RUN mkdir /home/ebarimtuser/.vatps && \
 
 RUN chmod -R 755 /home/ebarimtuser/.vatps
 
+
+RUN mkdir /home/ebarimtuser/app/solfiles
+
+
+RUN chmod -R 755 /home/ebarimtuser/app/solfiles
+
+
 RUN chown ebarimtuser:ebarimtuser /home/ebarimtuser/app
+
 USER ebarimtuser
-RUN mkdir /home/ebarimtuser/app/solfiles && \
-    chown ebarimtuser:ebarimtuser /home/ebarimtuser/app/solfiles
+
+
 CMD ["./main"]
 
