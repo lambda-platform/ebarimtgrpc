@@ -9,7 +9,8 @@ services:
       - "8110:8110"
       - "8111:8111"
     volumes:
-      - ./sofiles:/home/ebarimtuser/app/sofiles
+      - ./vatpsi:/home/ebarimtuser/.vatps
+      - ./../pos/pos_api:/home/ebarimtuser/app/sofiles
     environment:
       - TZ=Asia/Ulaanbaatar
 

@@ -65,8 +65,7 @@ RUN go build -buildvcs=false -o main .
 RUN chmod +x /home/ebarimtuser/app/main
 
 # Expose port 3000 for the application
-RUN mkdir /home/ebarimtuser/.vatps && \
-    chown ebarimtuser:ebarimtuser /home/ebarimtuser/.vatps
+RUN mkdir /home/ebarimtuser/.vatps
 
 RUN chmod -R 755 /home/ebarimtuser/.vatps
 
