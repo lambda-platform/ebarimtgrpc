@@ -77,7 +77,7 @@ RUN mkdir /home/ebarimtuser/app/solfiles
 RUN chmod -R 755 /home/ebarimtuser/app/solfiles
 
 
-RUN chown ebarimtuser:ebarimtuser /home/ebarimtuser/app
+
 
 USER ebarimtuser
 
