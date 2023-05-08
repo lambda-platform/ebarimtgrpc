@@ -4,6 +4,7 @@ go 1.20
 
 require (
 	github.com/golang/protobuf v1.5.3 // indirect
+	github.com/joho/godotenv v1.5.1 // indirect
 	github.com/lambda-platform/ebarimt v0.1.5 // indirect
 	golang.org/x/net v0.9.0 // indirect
 	golang.org/x/sys v0.8.0 // indirect

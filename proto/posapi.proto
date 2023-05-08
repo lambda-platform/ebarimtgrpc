@@ -13,20 +13,27 @@ service PosApi {
   rpc SendData (SendDataRequest) returns (DataOutput);
 }
 
-message GetInformationRequest {}
+message GetInformationRequest {
+  string posID = 1;
+}
 
-message CheckApiRequest {}
+message CheckApiRequest {
+  string posID = 1;
+}
 
 message CallFunctionRequest {
-  string function_name = 1;
-  string params = 2;
+  string posID = 1;
+  string function_name = 2;
+  string params = 3;
 }
 
 message CallFunctionResponse {
   string result = 1;
 }
 
-message SendDataRequest {}
+message SendDataRequest {
+  string posID = 1;
+}
 
 message CheckOutput {
   bool success = 1;
@@ -83,6 +90,7 @@ message PutInput {
   string branch_no = 15;
   repeated Stock stocks = 16;
   repeated BankTransaction bank_transactions = 17;
+  string posID = 18;
 }
 
 message Stock {
@@ -123,21 +131,13 @@ message PutOutput {
 message BillInput {
   string return_bill_id = 1;
   string date = 2;
+  string posID = 3;
 }
 
 message BillOutput {
   bool success = 1;
-  string register_no = 2;
-  string bill_id = 3;
-  string date = 4;
-  string mac_address = 5;
-  string internal_code = 6;
-  string bill_type = 7;
-  string qr_data = 8;
-  string lottery = 9;
-  string lottery_warning_msg = 10;
-  int32 error_code = 11;
-  string message = 12;
+  int32 error_code = 2;
+  string message = 3;
 }
 message PutInputBatch {
   bool group = 1;
@@ -147,6 +147,7 @@ message PutInputBatch {
   string bill_id_suffix = 5;
   string pos_no = 6;
   repeated Bill bills = 7;
+  string posID = 8;
 }
 
 message Bill {
@@ -174,6 +175,7 @@ message Bill {
 
 message DataOutput {
   bool success = 1;
-  string message = 2;
+  int32 error_code = 2;
+  string message = 3;
 }
 

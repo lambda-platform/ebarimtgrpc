@@ -1,31 +1,43 @@
 package server
 
 import (
-	"github.com/lambda-platform/ebarimt/posapi"
-	ebarimtProto "github.com/lambda-platform/ebarimtgrpc/proto"
+	"github.com/lambda-platform/ebarimtgrpc/config"
 	"google.golang.org/grpc"
+
+	ebarimtProto "github.com/lambda-platform/ebarimtgrpc/proto"
+	"log"
 	"net"
 )
 
-type PosApiServer struct {
+func NewServer() *Server {
+	return &Server{}
+}
+
+type Server struct {
 	ebarimtProto.UnimplementedPosApiServer
-	api *posapi.PosAPI
 }
 
-func NewPosApiServer(api *posapi.PosAPI) *PosApiServer {
-	return &PosApiServer{api: api}
-}
+func (server *Server) Run() error {
 
-// Implement your gRPC methods here, e.g., GetInformation, CheckApi, CallFunction, Put, PutBatch, ReturnBill, SendData.
-
-func StartServer(address string, api *posapi.PosAPI) error {
-	lis, err := net.Listen("tcp", address)
+	lis, err := net.Listen("tcp", ":"+config.Port)
 	if err != nil {
-		return err
+		log.Fatalf("failed to listen: %v", err)
 	}
 
-	grpcServer := grpc.NewServer()
-	ebarimtProto.RegisterPosApiServer(grpcServer, NewPosApiServer(api))
+	s := grpc.NewServer()
 
-	return grpcServer.Serve(lis)
+	ebarimtProto.RegisterPosApiServer(s, server)
+
+	log.Printf("GRPC server listening at %v", lis.Addr())
+
+	return s.Serve(lis)
+}
+
+func StartGRPC() {
+	go func() {
+		var grpcServer *Server = NewServer()
+		if err := grpcServer.Run(); err != nil {
+			log.Fatalf("failed to serve: %v", err)
+		}
+	}()
 }
